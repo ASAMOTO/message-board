@@ -2,48 +2,16 @@
   <div class="panel-heading">
     メッセージ一覧
   </div>
-  
-  <div class="panel-body">
+
+<div class="panel-body">
     <% @messages.each do |message| %>
       <span class="label label-info"><%= message.name %></span>
-      <%= message.body %>
+        <%= message.body %>
+        ( <%= link_to "edit" , edit_message_path(message) %> | <%= link_to "destroy" , message , method: :delete, data: { confirm: '削除してもよろしいですか？' } %> )
       <br>
     <% end %>
   </div>
 </div>
-<div class="form-horizontal">
-  <%= form_for(@message) do |f|%>
-    <% if @message.errors.present? %>
-    <div class="alert alert-danger">
-      <%= alert %>
-      <ul>
-        <% @message.errors.full_messages.each do |full_message| %>
-          <li>
-            <%= full_message %>
-          </li>
-        <% end %> 
-      </ul>
-    </div>
-  <% end %>
-<div class="container">
-        <div class="form-group">
-            <label class="control-label col-xs-2">名前</label>
-            <div class="col-xs-5">
-              <%= f.text_field :name,class: "form-control"%>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-xs-2">内容</label>
-            <div class="col-xs-5">
-              <%= f.text_area :body,class: "form-control"%>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-xs-offset-2 col-xs-10">
-                <%= f.submit class: "btn btn-sm btn-primary",value:"送信" %>
-            </div>
-        </div>
-    </form>
-</div>
-<% end %>
-</div>
+
+<% #部分テンプレートを読み込んでいる %>
+<%= render 'form' %>
